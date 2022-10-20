@@ -98,10 +98,74 @@ public class image {
             for (int x = 0; x < width; x++) {
 
                 int a = 255;
-                int r = x * 255;
-                int g = (int) (Math.tan(y));
-                int b = (int) (x*y * (Math.random() * 255));
+                int r = 0;
+                int g = (int) (Math.random() * x * 255);
+                int b = x * y * 255;
 
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                image.setRGB(x, y, p);
+            }
+        }
+
+        return image;
+    }
+
+    public BufferedImage channel_2() {
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int a = 255;
+                int r = y * 255;
+                int g = x * 255;
+                int b = x * y * 255;
+
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                image.setRGB(100, y, p);
+                image.setRGB((int) (Math.random() * 42), y, p);
+                image.setRGB(320, (int) (Math.random() * 420), p);
+                image.setRGB(43, y, p);
+            }
+        }
+
+        return image;
+    }
+
+    public BufferedImage channel_3() {
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int a = 255;
+                int r = y;
+                int g = x;
+                int b = (int) (Math.random() * 255);
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                image.setRGB(x, y, p);
+            }
+        }
+
+        return image;
+    }
+
+    public BufferedImage channel_4() {
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = (int) Math.sin(Math.random()); x < width; x++) {
+
+                int a = 255;
+                int r = y;
+                int g = x;
+                int b = (int) (Math.random() * 255);
                 int p = (a << 24) | (r << 16) | (g << 8) | b;
 
                 image.setRGB(x, y, p);
