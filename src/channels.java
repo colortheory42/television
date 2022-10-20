@@ -8,18 +8,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class channels {
-
     channels() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+
+        image image = new image();
+
+        sound sound = new sound();
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("enter a channel number: ");
 
         int channel_number = scanner.nextInt();
-
-        image image = new image();
-
-        sound sound = new sound();
 
         JFrame loading_connecting_connected = new JFrame();
 
@@ -39,7 +38,7 @@ public class channels {
 
         JLabel Channels = new JLabel();
 
-        final BufferedImage[] paint = new BufferedImage[1];
+        BufferedImage[] paint = new BufferedImage[1];
 
         loading_connecting_connected.setTitle("loading");
 
@@ -173,24 +172,36 @@ public class channels {
 
         loading_connecting_connected.remove(Connected_Image);
 
-        loading_connecting_connected.setTitle("CH " + channel_number );
+        loading_connecting_connected.setTitle("CH " + channel_number);
 
         loading_connecting_connected.repaint();
 
         loading_connecting_connected.setVisible(true);
 
-        if(channel_number == 0){
 
-            Channels.setIcon(new ImageIcon(image.channel_0()));
+        if (channel_number == 0) {
 
-            loading_connecting_connected.add(Channels);
+            Timer channel_number_0 = new Timer(1000 / 60, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-            loading_connecting_connected.repaint();
+                    paint[0] = image.channel_0();
 
-            loading_connecting_connected.setVisible(true);
+                    Channels.setIcon(new ImageIcon(paint[0]));
+
+                    loading_connecting_connected.add(Channels);
+
+                    loading_connecting_connected.repaint();
+
+                    loading_connecting_connected.setVisible(true);
+
+                }
+            });
+
+            channel_number_0.setInitialDelay(0);
+            channel_number_0.start();
         }
 
     }
-
 
 }
