@@ -47,6 +47,28 @@ public class image {
 
     }
 
+    public BufferedImage disconnected() {
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int a = 255;
+                int r = 255;
+                int g = 0;
+                int b = 0;
+
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                image.setRGB(x, y, p);
+            }
+        }
+
+        return image;
+
+    }
+
     public BufferedImage channel_0() {
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -55,9 +77,9 @@ public class image {
             for (int x = 0; x < width; x++) {
 
                 int a = 255;
-                int r = 0;
-                int g = 0;
-                int b = 0;
+                int r = x;
+                int g = y;
+                int b = x*y;
 
                 int p = (a << 24) | (r << 16) | (g << 8) | b;
 
