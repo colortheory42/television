@@ -77,9 +77,9 @@ public class image {
             for (int x = 0; x < width; x++) {
 
                 int a = 255;
-                int r = x;
-                int g = y;
-                int b = x*y;
+                int r = x * 255;
+                int g = y * 255;
+                int b = (int) (x*y * (Math.random() * 255));
 
                 int p = (a << 24) | (r << 16) | (g << 8) | b;
 
