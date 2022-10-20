@@ -202,6 +202,96 @@ public class channels {
             channel_number_0.start();
         }
 
+        if (channel_number == 1) {
+
+            Timer channel_number_1 = new Timer(1000 / 60, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    paint[0] = image.channel_1();
+
+                    Channels.setIcon(new ImageIcon(paint[0]));
+
+                    loading_connecting_connected.add(Channels);
+
+                    loading_connecting_connected.repaint();
+
+                    loading_connecting_connected.setVisible(true);
+
+                }
+            });
+
+            channel_number_1.setInitialDelay(0);
+            channel_number_1.start();
+        }
+
+        if (channel_number == 2) {
+
+            Timer channel_number_2 = new Timer(1000 / 60, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    paint[0] = image.channel_2();
+
+                    Channels.setIcon(new ImageIcon(paint[0]));
+
+                    loading_connecting_connected.add(Channels);
+
+                    loading_connecting_connected.repaint();
+
+                    loading_connecting_connected.setVisible(true);
+
+                }
+            });
+
+            channel_number_2.setInitialDelay(0);
+            channel_number_2.start();
+        }
+        if (channel_number == 3) {
+
+            Timer channel_number_3 = new Timer(1000 / 60, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    paint[0] = image.channel_3();
+
+                    Channels.setIcon(new ImageIcon(paint[0]));
+
+                    loading_connecting_connected.add(Channels);
+
+                    loading_connecting_connected.repaint();
+
+                    loading_connecting_connected.setVisible(true);
+
+                }
+            });
+
+            channel_number_3.setInitialDelay(0);
+            channel_number_3.start();
+        }
+
+        if (channel_number == 4) {
+
+            Timer channel_number_4 = new Timer(1000 / 60, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    paint[0] = image.channel_4();
+
+                    Channels.setIcon(new ImageIcon(paint[0]));
+
+                    loading_connecting_connected.add(Channels);
+
+                    loading_connecting_connected.repaint();
+
+                    loading_connecting_connected.setVisible(true);
+
+                }
+            });
+
+            channel_number_4.setInitialDelay(0);
+            channel_number_4.start();
+        }
     }
 
 }
