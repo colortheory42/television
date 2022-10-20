@@ -89,4 +89,25 @@ public class image {
 
         return image;
     }
+
+    public BufferedImage channel_1() {
+
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int a = 255;
+                int r = x * 255;
+                int g = (int) (Math.tan(y));
+                int b = (int) (x*y * (Math.random() * 255));
+
+                int p = (a << 24) | (r << 16) | (g << 8) | b;
+
+                image.setRGB(x, y, p);
+            }
+        }
+
+        return image;
+    }
 }
