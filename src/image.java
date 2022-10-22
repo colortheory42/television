@@ -1,177 +1,110 @@
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class image {
 
-    static int width = 1920;
-    static int height = 1080;
-    public BufferedImage connecting() throws IOException {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = (int) (Math.random() * 255);
-                int r = (int) (Math.random() * 255);
-                int g = (int) (Math.random() * 255);
-                int b = (int) (Math.random() * 255);
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-                image.setRGB(x, y, p);
-
-            }
+    interface PixelPainter {
+        int pixelColor(long t, int x, int y);
+        default int toRGB(int a, int r, int g, int b) {
+            return (a << 24) | (r << 16) | (g << 8) | b;
         }
-        return image;
-
+        default BufferedImage drawFrame(long when, int width, int height) {
+            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = pixelColor(when, x, y);
+                    image.setRGB(x, y, rgb);
+                }
+            }
+            return image;
+        }
     }
 
-    public BufferedImage connected() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = 0;
-                int g = 255;
-                int b = 0;
-
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+    static class RandomStatic implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int a = (int) (Math.random() * 255);
+            int r = (int) (Math.random() * 255);
+            int g = (int) (Math.random() * 255);
+            int b = (int) (Math.random() * 255);
+            return toRGB(a, r, g, b);
         }
-
-        return image;
-
     }
 
-    public BufferedImage disconnected() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = 255;
-                int g = 0;
-                int b = 0;
-
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+    static class Connected implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            return toRGB(255, 0, 255, 0);
         }
-
-        return image;
-
     }
 
-    public BufferedImage channel_0() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = x * 255;
-                int g = y * 255;
-                int b = (int) (x*y * (Math.random() * 255));
-
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+    static class Disconnected implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            return toRGB(255, 255, 0, 0);
         }
-
-        return image;
     }
 
-    public BufferedImage channel_1() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = 0;
-                int g = (int) (Math.random() * x * 255);
-                int b = x * y * 255;
-
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+    static class Channel_0 implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int a = 255;
+            int r = x * 255;
+            int g = y * 255;
+            int b = (int) (x*y * (Math.random() * 255));
+            return toRGB(a, r, g, b);
         }
-
-        return image;
     }
 
-    public BufferedImage channel_2() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = y * 255;
-                int g = x * 255;
-                int b = x * y * 255;
-
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(100, y, p);
-                image.setRGB((int) (Math.random() * 42), y, p);
-                image.setRGB(320, (int) (Math.random() * 420), p);
-                image.setRGB(43, y, p);
-            }
+    static class Channel_1 implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int a = 255;
+            int r = 0;
+            int g = (int) (Math.random() * x * 255);
+            int b = x * y * 255;
+            return toRGB(a, r, g, b);
         }
-
-        return image;
     }
 
-    public BufferedImage channel_3() {
+    static class Channel_2 implements PixelPainter {
 
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-
-                int a = 255;
-                int r = y;
-                int g = x;
-                int b = (int) (Math.random() * 255);
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+        /* Note: I actually edited how the pixel setting was done on this one since it
+        seemed like the wrong numbers were being changed - all others have been left alone. */
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int a = 255;
+            int r = y * 255;
+            int g = x * 255;
+            int b = x * y * 255;
+            return toRGB(a, r, g, b);
         }
-
-        return image;
     }
 
-    public BufferedImage channel_4() {
-
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = (int) Math.sin(Math.random()); x < width; x++) {
-
-                int a = 255;
-                int r = y;
-                int g = x;
-                int b = (int) (Math.random() * 255);
-                int p = (a << 24) | (r << 16) | (g << 8) | b;
-
-                image.setRGB(x, y, p);
-            }
+    static class Channel_3 implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int b = (int) (Math.random() * 255);
+            return toRGB(255, x, y, b);
         }
-
-        return image;
     }
+
+    static class Channel_4 implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int b = (int) (Math.random() * 255);
+            return toRGB(255, y, x, b);
+        }
+    }
+
+    // Note: Made this as an example of a time-varying Channel - hope it's in line with your vision!
+    static class TimeSlider implements PixelPainter {
+        @Override
+        public int pixelColor(long t, int x, int y) {
+            int slowMo = 15;
+            int aOverTime = (int)((t/ slowMo) % 255);
+            int b = (int) (Math.random() * 255);
+            return toRGB(aOverTime, y + aOverTime, x + aOverTime, b);
+        }
+    }
+
 }
